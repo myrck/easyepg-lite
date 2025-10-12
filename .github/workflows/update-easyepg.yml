@@ -1,0 +1,30 @@
+name: Update easyepg-lite
+
+on:
+  schedule:
+    - cron: "25 1 * * *"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v5
+      -
+        name: Update easyepg-lite
+        id: update
+        run: ./.github/easyepg-lite-update.sh
+        shell: bash
+      -
+        name: Commit Update
+        if: ${{ steps.update.outputs.sha != '' }}
+        run: |
+          git config --global user.name 'Michael Myrcik'
+          git config --global user.email '20473294+myrck@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }}
+          git add Dockerfile
+          git commit -m "Update easyepg-lite to $NEW_VERSION_SHA"
+          git push
+
+
