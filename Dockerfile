@@ -1,4 +1,4 @@
-FROM curlimages/curl AS build
+FROM curlimages/curl@sha256:463eaf6072688fe96ac64fa623fe73e1dbe25d8ad6c34404a669ad3ce1f104b6 AS build
 
 ARG EASYEPG_LITE_SHA="5fd34170e505ac19818905af735ec3c996ed2e95"
 
@@ -12,7 +12,7 @@ RUN \
     && rm easyepg-lite/*.jpg \
     && rm easyepg-lite/addon.*
 
-FROM python:3.14-alpine
+FROM python:3.14-alpine@sha256:8373231e1e906ddfb457748bfc032c4c06ada8c759b7b62d9c73ec2a3c56e710
 
 RUN \
     echo "**** install dependencies ****" \
