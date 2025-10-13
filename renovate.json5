@@ -1,20 +1,23 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    // https://docs.renovatebot.com/presets-config/#configbest-practices
-    "config:best-practices",
-    ':gitSignOff'
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:best-practices',
+    ':gitSignOff',
   ],
   automergeStrategy: 'squash',
-  "customManagers": [
+  customManagers: [
     {
-      "customType": "regex",
-      "fileMatch": ['^Dockerfile$'],
-      "matchStrings": ["ARG\\sEASYEPG_LITE_SHA=\"(?<currentDigest>.*?)\"\\n"],
-      "currentValueTemplate": "main",
-      "depNameTemplate": "easyepg-lite",
-      "packageNameTemplate": "https://github.com/sunsettrack4/script.service.easyepg-lite",
-      "datasourceTemplate": "git-refs"
-    }
+      customType: 'regex',
+      managerFilePatterns: [
+        '/^Dockerfile$/',
+      ],
+      matchStrings: [
+        'ARG\\sEASYEPG_LITE_SHA="(?<currentDigest>.*?)"\\n',
+      ],
+      currentValueTemplate: 'main',
+      depNameTemplate: 'easyepg-lite',
+      packageNameTemplate: 'https://github.com/sunsettrack4/script.service.easyepg-lite',
+      datasourceTemplate: 'git-refs',
+    },
   ],
 }
