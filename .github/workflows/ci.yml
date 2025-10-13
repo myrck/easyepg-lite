@@ -6,9 +6,6 @@ on:
       - 'Dockerfile'
       - 'main.py'
 
-env:
-  TEST_TAG: ghcr.io/myrck/easyepg-lite:test
-
 jobs:
   docker:
     runs-on: ubuntu-latest
