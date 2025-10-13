@@ -1,8 +1,10 @@
 FROM curlimages/curl AS build
 
+ARG EASYEPG_LITE_SHA="5fd34170e505ac19818905af735ec3c996ed2e95"
+
 RUN \
     echo "**** download easyepg-lite ****" \
-    && curl -sSL https://github.com/sunsettrack4/script.service.easyepg-lite/archive/5fd34170e505ac19818905af735ec3c996ed2e95.tar.gz | tar -xzvf- \
+    && curl -sSL https://github.com/sunsettrack4/script.service.easyepg-lite/archive/${EASYEPG_LITE_SHA}.tar.gz | tar -xzvf- \
     && mv script.service.easyepg-lite-* easyepg-lite \
     && echo "**** remove unnecessary files ****" \
     && rm easyepg-lite/*.md \
