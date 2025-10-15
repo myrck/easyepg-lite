@@ -3,20 +3,20 @@ FROM curlimages/curl@sha256:463eaf6072688fe96ac64fa623fe73e1dbe25d8ad6c34404a669
 ARG EASYEPG_LITE_SHA="1180aa2df7d3916130fc90506ead1b59f1cf6938"
 
 RUN \
-    echo "**** download easyepg-lite ****" \
-    && curl -sSL https://github.com/sunsettrack4/script.service.easyepg-lite/archive/${EASYEPG_LITE_SHA}.tar.gz | tar -xzvf- \
-    && mv script.service.easyepg-lite-* easyepg-lite \
-    && echo "**** remove unnecessary files ****" \
-    && rm easyepg-lite/*.md \
-    && rm easyepg-lite/*.png \
-    && rm easyepg-lite/*.jpg \
-    && rm easyepg-lite/addon.*
+    echo "**** download easyepg-lite ****" && \
+    curl -sSL https://github.com/sunsettrack4/script.service.easyepg-lite/archive/${EASYEPG_LITE_SHA}.tar.gz | tar -xzvf- && \
+    mv script.service.easyepg-lite-* easyepg-lite && \
+    echo "**** remove unnecessary files ****" && \
+    rm easyepg-lite/*.md && \
+    rm easyepg-lite/*.png && \
+    rm easyepg-lite/*.jpg && \
+    rm easyepg-lite/addon.*
 
 FROM python:3.14-alpine@sha256:8373231e1e906ddfb457748bfc032c4c06ada8c759b7b62d9c73ec2a3c56e710
 
 RUN \
-    echo "**** install dependencies ****" \
-    && pip install --no-cache-dir \
+    echo "**** install dependencies ****" && \
+    pip install --no-cache-dir \
         beautifulsoup4 \
         bottle \
         requests \
@@ -24,14 +24,20 @@ RUN \
 
 WORKDIR /app
 
-RUN addgroup -g 1000 easyepg \
-    && adduser --shell /sbin/nologin --disabled-password \
-    --no-create-home --uid 1000 --ingroup easyepg easyepg \
-    && mkdir /data \
-    && chown -R easyepg:easyepg /app /data
+RUN addgroup -g 1000 easyepg && \
+    adduser --shell /sbin/nologin --disabled-password \
+        --no-create-home --uid 1000 --ingroup easyepg easyepg && \
+    mkdir /data && \
+    chown -R easyepg:easyepg /app /data && \
+    chmod 777 /app /data
 
 COPY --from=build --chown=easyepg:easyepg /home/curl_user/easyepg-lite /app
 COPY --chown=easyepg:easyepg main.py .
+
+RUN \
+    echo "**** apply workarounds to work on this docker ****" && \
+    echo "Channel DB must be writable for everyone ..." && \
+    chmod -R 777 /app/resources/data/db
 
 USER easyepg
 
