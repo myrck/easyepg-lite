@@ -20,4 +20,14 @@
       datasourceTemplate: 'git-refs',
     },
   ],
+  "packageRules": [
+    {
+     "matchFileNames": [".github/**"],
+     "automerge": true,
+    },
+    {
+      "matchFileNames": ["Dockerfile"],
+      "groupName": "Docker Dependencies",
+    },
+  ],
 }
