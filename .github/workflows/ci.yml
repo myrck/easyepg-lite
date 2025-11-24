@@ -29,10 +29,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG_PREFIX: v
+          DRY_RUN: ${{ github.ref != 'refs/heads/main' || steps.changes.outputs.dockerfile != 'true' }}
       -
         name: Login to Docker Hub
         uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3
-        if: github.ref == 'refs/heads/main' && steps.changes.outputs.dockerfile == 'true'
         with:
           registry: docker.io
           username: ${{ vars.DOCKERHUB_USERNAME }}
