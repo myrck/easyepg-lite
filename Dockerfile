@@ -1,6 +1,6 @@
 FROM curlimages/curl@sha256:d94d07ba9e7d6de898b6d96c1a072f6f8266c687af78a74f380087a0addf5d17 AS build
 
-ARG EASYEPG_LITE_SHA="c81e7382f32c18c26a87553ae46d81530e0eaff0"
+ARG EASYEPG_LITE_SHA="8d8a8438924b9bf0d7b3e480132cd73c31db69bb"
 
 RUN \
     echo "**** download easyepg-lite ****" && \
