@@ -1,6 +1,6 @@
-FROM curlimages/curl@sha256:d94d07ba9e7d6de898b6d96c1a072f6f8266c687af78a74f380087a0addf5d17 AS build
+FROM curlimages/curl@sha256:3fb7e13e5d179a845c97d78204f3f1064d1907037f26a3ebf91710571151fd93 AS build
 
-ARG EASYEPG_LITE_SHA="7016b30a44e77244b5648c3fe7d9bc43eb096a81"
+ARG EASYEPG_LITE_SHA="49bdfe5400e8cdadcd9df1f4245263080f7c30ab"
 
 RUN \
     echo "**** download easyepg-lite ****" && \
@@ -12,7 +12,7 @@ RUN \
     rm easyepg-lite/*.jpg && \
     rm easyepg-lite/addon.*
 
-FROM python:3.14-alpine@sha256:14558bb88225c495de95c0796c22de2c708500e48e9a6b84ce6b729d590fcb65
+FROM python:3.15-alpine@sha256:20a82dbc2783112ddb91d1534603f802d222a3e63e593cd002eb2ac534e70211
 
 RUN \
     echo "**** install dependencies ****" && \
